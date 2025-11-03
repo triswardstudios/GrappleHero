@@ -29,6 +29,10 @@ public class GrapplingGun : MonoBehaviour
     [Header("Distance:")]
     [SerializeField] private bool hasMaxDistance = false;
     [SerializeField] private float maxDistnace = 20;
+    [SerializeField] bool dynamicTargetDistance = false;
+    [SerializeField] int distanceOffset = 2;
+    [SerializeField] int minTargetDistance = 5;
+
 
     private enum LaunchType
     {
@@ -182,7 +186,22 @@ public class GrapplingGun : MonoBehaviour
                     Vector2 firePointDistanceVector = firePoint.position - gunHolder.position;
 
                     //m_springJoint2D.distance = firePointDistanceVector.magnitude;
-                    m_springJoint2D.distance = targetDistance;
+                    if(dynamicTargetDistance) //not working as intended
+                    {
+                        float distancePlayerToPoint = Vector3.Distance(grapplePoint, gunHolder.position);
+                        Debug.Log("Disptacne from player : " + distancePlayerToPoint);
+                        if(distancePlayerToPoint <= minTargetDistance)
+                        {
+                            m_springJoint2D.distance = minTargetDistance;
+                        }else
+                        {
+                            m_springJoint2D.distance = distancePlayerToPoint - distanceOffset;   
+                        }
+                    }
+                    else
+                    {
+                        m_springJoint2D.distance = targetDistance;
+                    }
                     m_springJoint2D.frequency = launchSpeed;
                     m_springJoint2D.enabled = true;
                     break;
