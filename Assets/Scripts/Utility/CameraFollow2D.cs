@@ -15,6 +15,10 @@ public class CameraFollow2D : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private Vector3 targetPos;
 
+    private void Update()
+    {
+        target = GameObject.Find("Body_Light_Shark_Purple").transform;
+    }
     void LateUpdate()
     {
         if (target == null) return;
@@ -47,6 +51,7 @@ public class CameraFollow2D : MonoBehaviour
         smoothPos.z = camPos.z;
 
         transform.position = smoothPos;
+        
     }
 
 #if UNITY_EDITOR
