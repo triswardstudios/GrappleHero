@@ -58,6 +58,7 @@ public class GrapplingGun : MonoBehaviour
     {
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
+        m_camera = Camera.main;
 
     }
 
