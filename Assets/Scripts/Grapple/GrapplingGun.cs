@@ -184,19 +184,29 @@ public class GrapplingGun : MonoBehaviour
                 case LaunchType.Physics_Launch:
                     m_springJoint2D.connectedAnchor = grapplePoint;
 
-                    Vector2 firePointDistanceVector = firePoint.position - gunHolder.position;
+                    Vector2 firePointDistanceVector = firePoint.position - gunPivot.position;
 
                     //m_springJoint2D.distance = firePointDistanceVector.magnitude;
                     if(dynamicTargetDistance) //not working as intended
                     {
-                        float distancePlayerToPoint = Vector3.Distance(grapplePoint, gunHolder.position);
+                        float distancePlayerToPoint = Vector3.Distance(grapplePoint, gunPivot.position);
                         Debug.Log("Disptacne from player : " + distancePlayerToPoint);
                         if(distancePlayerToPoint <= minTargetDistance)
                         {
                             m_springJoint2D.distance = minTargetDistance;
                         }else
                         {
-                            m_springJoint2D.distance = distancePlayerToPoint - distanceOffset;   
+                            float dsitanceToSet = distancePlayerToPoint - distanceOffset;
+                            if(dsitanceToSet < minTargetDistance)
+                            {
+                                m_springJoint2D.distance = minTargetDistance;
+                            }
+                            else
+                            {
+                                m_springJoint2D.distance = distancePlayerToPoint - distanceOffset;
+                                
+                            }
+                            Debug.Log("<color=yellow>Sprint distance: " + m_springJoint2D.distance + "</color");
                         }
                     }
                     else
