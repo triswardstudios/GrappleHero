@@ -97,7 +97,7 @@ public class CashManager : MonoSingleton<CashManager>
           gems = PlayerPrefs.GetInt("Gems",0);
      }
 
-
+     #region  Buttons
      [NaughtyAttributes.Button]
      private void Add500Coin()
      {
@@ -130,4 +130,17 @@ public class CashManager : MonoSingleton<CashManager>
      {
           DebitGems(gems);
      }
+     #endregion
+
+
+     #region EVENTS
+
+     public void ListenToCoinCollectedEvnet(Component sender,object data)
+     {
+          if(sender is Coin)
+          {
+               CreditCoins((int)data);
+          }
+     }
+     #endregion
 }
