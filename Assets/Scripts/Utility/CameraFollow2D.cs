@@ -17,7 +17,10 @@ public class CameraFollow2D : MonoBehaviour
 
     private void Update()
     {
-        target = GameObject.Find("Body_Light_Shark_Purple").transform;
+        if (GameObject.Find("Body_Light_Shark_Purple") != null)
+        {
+            target = GameObject.Find("Body_Light_Shark_Purple").transform;
+        }
     }
     void LateUpdate()
     {
