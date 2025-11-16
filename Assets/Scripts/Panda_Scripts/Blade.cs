@@ -27,8 +27,12 @@ public class Blade : MonoBehaviour
             collided = false;
                 StartCoroutine(RespawnRoutine(collision));
         }
+        IDamageble damageble = collision.collider.GetComponentInParent<IDamageble>();
+        if (damageble != null)
+        {
+            damageble.TakeDamage(1);
+        }
     }
-
     private IEnumerator RespawnRoutine(Collision2D collision)
     {
         // Remember original parent and transform
@@ -49,9 +53,6 @@ public class Blade : MonoBehaviour
             if (Player == null)
             {
                 GameObject newObj = Instantiate(replacementPrefab, position, rotation, parent);
-<<<<<<< Updated upstream
-=======
-
                 Player = newObj;
                 Debug.Log($"Replaced {Player.name} with {newObj.name} under parent {parent?.name ?? "Scene Root"}");
                 gm = FindFirstObjectByType<GrapplePointManager>();
@@ -62,14 +63,7 @@ public class Blade : MonoBehaviour
         {
             Debug.LogWarning("No replacement prefab assigned!");
         }
->>>>>>> Stashed changes
 
-                Player = newObj;
-                Debug.Log($"Replaced {Player.name} with {newObj.name} under parent {parent?.name ?? "Scene Root"}");
-                gm = FindFirstObjectByType<GrapplePointManager>();
-                gm.RefreshPoints();
-            }
-        }
     }
 
    
